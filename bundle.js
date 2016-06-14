@@ -5964,7 +5964,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        key: 'initializeRenderer',
 	        value: function initializeRenderer() {
 	            this.renderer = new _three2.default.WebGLRenderer();
-	            this.renderer.setClearColor(new _three2.default.Color(0xffffff, 1.0));
+	            this.renderer.setClearColor(new _three2.default.Color(0xffffff), 1.0);
 	            this.renderer.setSize(this.windowWidth, this.windowHeight);
 	
 	            this.el.appendChild(this.renderer.domElement);
