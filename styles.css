@@ -27,23 +27,22 @@
     padding: 16px;
     background-color: rgba(0, 0, 0, 0.1);
     cursor: pointer; }
+.orthofloat-stripes {
+  display: block;
+  position: absolute;
+  height: 100%;
+  max-height: 100vh;
+  min-width: calc(100% + 100px);
+  overflow: hidden; }
+  .orthofloat-stripes .orthofloat-stripe {
+    display: inline-block;
+    height: 100%; }
 .orthofloat-wrapper {
   max-height: 100vh;
   max-width: 100vw;
   overflow: hidden; }
-  .orthofloat-wrapper > div {
+  .orthofloat-wrapper > div:not(.orthofloat-stripes) {
     display: none; }
-  .orthofloat-wrapper .orthofloat-stripes {
-    display: block;
-    position: absolute;
-    height: 100%;
-    max-height: 100vh;
-    min-width: calc(100% + 100px);
-    overflow: hidden; }
-  .orthofloat-wrapper .orthofloat-stripe {
-    display: inline-block;
-    height: 100%;
-    background-color: aliceblue; }
   .orthofloat-wrapper > canvas {
     display: block;
     position: relative; }
