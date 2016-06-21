@@ -4,28 +4,30 @@
   font-size: 1rem;
   z-index: 10; }
   #menu.is-open {
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.9); }
+    text-align: right; }
     #menu.is-open .menu-open {
       display: none; }
     #menu.is-open .menu-contents {
       display: block; }
   #menu .menu-open {
     padding: 8px;
-    background-color: rgba(0, 0, 0, 0.05);
-    cursor: pointer; }
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.5); }
   #menu .menu-contents {
     display: none;
-    padding: 16px;
-    border-bottom: 1px solid black; }
-    #menu .menu-contents > h1 {
-      margin: 0; }
+    padding: 16px; }
+    #menu .menu-contents > p {
+      background-color: rgba(255, 255, 255, 0.75); }
+  #menu .menu-title {
+    display: inline-block;
+    margin: 0 35px 0 0;
+    background-color: rgba(255, 255, 255, 0.75); }
   #menu .menu-close {
     position: absolute;
     top: 0;
     right: 0;
     padding: 16px;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(255, 255, 255, 0.5);
     cursor: pointer; }
 .orthofloat-stripes {
   display: block;
@@ -49,6 +51,8 @@
   .orthofloat-wrapper.show-stats > div {
     display: block; }
 #app {
-  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace; }
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
 
 /*# sourceMappingURL=styles.css.map*/

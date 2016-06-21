@@ -6076,8 +6076,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.makeRadiansPositive = makeRadiansPositive;
 	exports.randomWithRange = randomWithRange;
 	exports.simplifyAngle = simplifyAngle;
+	function makeRadiansPositive(radians) {
+	    if (radians >= 0) {
+	        return radians;
+	    }
+	
+	    var posRadians = radians;
+	    while (posRadians < 0) {
+	        posRadians += Math.PI * 2;
+	    }
+	
+	    return posRadians;
+	}
+	
 	function randomWithRange(min, max) {
 	    return Math.random() * (max - min) + min;
 	}
@@ -6257,6 +6271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        value: function componentWillMount() {
 	            this.setVendorPrefix();
 	            this.stripeWidth = 25;
+	            this.tweenLength = 2500;
 	        }
 	    }, {
 	        key: 'componentDidMount',
@@ -6292,7 +6307,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var oldColors = (0, _threeHelpers.mergeTopAndBottomColors)(this.props.topColor, this.props.bottomColor);
 	            var newColors = (0, _threeHelpers.mergeTopAndBottomColors)(nextTopColor, nextBottomColor);
 	
-	            var tween = new _tween2.default.Tween(oldColors).to(newColors, 1000).easing(_tween2.default.Easing.Quadratic.Out).onUpdate(function () {
+	            var tween = new _tween2.default.Tween(oldColors).to(newColors, this.tweenLength).easing(_tween2.default.Easing.Quadratic.Out).onUpdate(function () {
 	                randomShapeMaterialBottom.color = (0, _threeHelpers.currentColorInTween)(this, 'bottom');
 	                randomShapeMaterialTop.color = (0, _threeHelpers.currentColorInTween)(this, 'top');
 	
@@ -6429,6 +6444,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var windowHeight = _state2.windowHeight;
 	            var windowWidth = _state2.windowWidth;
 	
+	            mesh.position.x = (0, _mathHelpers.randomWithRange)(windowWidth / 16, windowWidth / -16);
 	            mesh.position.y = (0, _mathHelpers.randomWithRange)(windowHeight / 16, windowHeight / -16);
 	            mesh.position.z = (0, _mathHelpers.randomWithRange)(windowWidth / 16, windowWidth / -16);
 	            mesh.rotation.set((0, _mathHelpers.randomWithRange)(0, Math.PI), (0, _mathHelpers.randomWithRange)(0, Math.PI), (0, _mathHelpers.randomWithRange)(0, Math.PI));
@@ -6437,6 +6453,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                y: (0, _mathHelpers.randomWithRange)(-0.01, 0.01),
 	                z: (0, _mathHelpers.randomWithRange)(-0.01, 0.01)
 	            };
+	
+	            this.assignMeshVelocities(mesh);
+	        }
+	    }, {
+	        key: 'assignMeshVelocities',
+	        value: function assignMeshVelocities(mesh) {
+	            mesh.xVelocity = (0, _mathHelpers.randomWithRange)(-0.01, 0.01);
 	            mesh.yVelocity = (0, _mathHelpers.randomWithRange)(0.03, 0.1);
 	            mesh.zVelocity = (0, _mathHelpers.randomWithRange)(-0.01, 0.01);
 	        }
@@ -6504,10 +6527,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var camera = this.camera;
 	            var scene = this.scene;
 	
-	            var oldAngle = { angle: Math.atan2(camera.position.z, camera.position.x) };
+	            var oldAngle = { angle: (0, _mathHelpers.makeRadiansPositive)(Math.atan2(camera.position.z, camera.position.x)) };
 	            var newAngle = { angle: (0, _mathHelpers.simplifyAngle)(angle) * (Math.PI / 180) };
 	
-	            var tween = new _tween2.default.Tween(oldAngle).to(newAngle, 1000).easing(_tween2.default.Easing.Quadratic.Out).onUpdate(function () {
+	            var tween = new _tween2.default.Tween(oldAngle).to(newAngle, this.tweenLength).easing(_tween2.default.Easing.Quadratic.Out).onUpdate(function () {
 	                camera.position.x = 120 * Math.cos(this.angle);
 	                camera.position.z = 120 * Math.sin(this.angle);
 	                camera.lookAt(scene.position);
@@ -6619,8 +6642,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            mesh.position.z = (0, _mathHelpers.randomWithRange)(windowWidth / 16, windowWidth / -16);
 	
 	            // give it new velocities
-	            mesh.yVelocity = (0, _mathHelpers.randomWithRange)(0.03, 0.1);
-	            mesh.zVelocity = (0, _mathHelpers.randomWithRange)(-0.01, 0.01);
+	            this.assignMeshVelocities(mesh);
 	
 	            // give the mesh new rotation speeds
 	            var _arr = ['x', 'y', 'z'];
@@ -6636,16 +6658,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var windowHeight = _state6.windowHeight;
 	            var windowWidth = _state6.windowWidth;
 	
-	            // translate the mesh
-	
-	            mesh.position.y += mesh.yVelocity;
-	            mesh.position.z += mesh.zVelocity;
-	
 	            // rotate the mesh around its axes
+	
 	            var _arr2 = ['x', 'y', 'z'];
 	            for (var _i2 = 0; _i2 < _arr2.length; _i2++) {
 	                var axis = _arr2[_i2];
-	                mesh.rotation[axis] += mesh.rotationSpeed[axis];
+	                mesh.position[axis] += mesh[axis + 'Velocity']; // translate the mesh
+	                mesh.rotation[axis] += mesh.rotationSpeed[axis]; // rotate the mesh
 	            }
 	        }
 	    }, {
@@ -11415,8 +11434,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        'X'
 	                    ),
 	                    _react2.default.createElement(
-	                        'h1',
-	                        null,
+	                        'h3',
+	                        { className: 'menu-title' },
 	                        'orthofloat'
 	                    ),
 	                    _react2.default.createElement(
@@ -11428,7 +11447,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                            { href: 'http://www.russrinzler.com', target: '_blank' },
 	                            'Russ Rinzler'
 	                        ),
-	                        '. click ',
+	                        '.',
+	                        _react2.default.createElement('br', null),
+	                        'click ',
 	                        _react2.default.createElement(
 	                            'a',
 	                            { href: 'https://github.com/RussHR/orthofloat_src', target: '_blank' },
