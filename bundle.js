@@ -6311,29 +6311,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	        key: 'setStripesColor',
 	        value: function setStripesColor(stripeDivs, topColorStyle, bottomColorStyle) {
-	            var _iteratorNormalCompletion = true;
-	            var _didIteratorError = false;
-	            var _iteratorError = undefined;
-	
-	            try {
-	                for (var _iterator = stripeDivs[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	                    var stripe = _step.value;
-	
-	                    stripe.style.backgroundImage = this.vendorPrefix + 'linear-gradient(' + bottomColorStyle + ', ' + topColorStyle + ')';
-	                }
-	            } catch (err) {
-	                _didIteratorError = true;
-	                _iteratorError = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion && _iterator.return) {
-	                        _iterator.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError) {
-	                        throw _iteratorError;
-	                    }
-	                }
+	            for (var i = 0; i < stripeDivs.length; i++) {
+	                stripeDivs[i].style.backgroundImage = this.vendorPrefix + 'linear-gradient(' + bottomColorStyle + ', ' + topColorStyle + ')';
 	            }
 	        }
 	    }, {
@@ -6608,14 +6587,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	            var windowHeight = this.state.windowHeight;
 	            var randomShapeMaterialTop = this.randomShapeMaterialTop;
 	            var randomShapeMaterialBottom = this.randomShapeMaterialBottom;
-	            var _iteratorNormalCompletion2 = true;
-	            var _didIteratorError2 = false;
-	            var _iteratorError2 = undefined;
+	            var _iteratorNormalCompletion = true;
+	            var _didIteratorError = false;
+	            var _iteratorError = undefined;
 	
 	            try {
 	
-	                for (var _iterator2 = this.randomShapes[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	                    var mesh = _step2.value;
+	                for (var _iterator = this.randomShapes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	                    var mesh = _step.value;
 	
 	                    // if shape is above top of window
 	                    if (mesh.position.y > windowHeight / 16 + this.meshSize * 4) {
@@ -6632,6 +6611,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	                    }
 	                }
 	            } catch (err) {
+	                _didIteratorError = true;
+	                _iteratorError = err;
+	            } finally {
+	                try {
+	                    if (!_iteratorNormalCompletion && _iterator.return) {
+	                        _iterator.return();
+	                    }
+	                } finally {
+	                    if (_didIteratorError) {
+	                        throw _iteratorError;
+	                    }
+	                }
+	            }
+	
+	            var _iteratorNormalCompletion2 = true;
+	            var _didIteratorError2 = false;
+	            var _iteratorError2 = undefined;
+	
+	            try {
+	                for (var _iterator2 = this.tetras[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	                    var _mesh = _step2.value;
+	
+	                    // if shape is above top of window
+	                    if (_mesh.position.y > windowHeight / 16 + this.meshSize * 4) {
+	                        this.repositionMeshToBottom(_mesh);
+	                    }
+	
+	                    this.moveMesh(_mesh);
+	                }
+	            } catch (err) {
 	                _didIteratorError2 = true;
 	                _iteratorError2 = err;
 	            } finally {
@@ -6642,36 +6651,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	                } finally {
 	                    if (_didIteratorError2) {
 	                        throw _iteratorError2;
-	                    }
-	                }
-	            }
-	
-	            var _iteratorNormalCompletion3 = true;
-	            var _didIteratorError3 = false;
-	            var _iteratorError3 = undefined;
-	
-	            try {
-	                for (var _iterator3 = this.tetras[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-	                    var _mesh = _step3.value;
-	
-	                    // if shape is above top of window
-	                    if (_mesh.position.y > windowHeight / 16 + this.meshSize * 4) {
-	                        this.repositionMeshToBottom(_mesh);
-	                    }
-	
-	                    this.moveMesh(_mesh);
-	                }
-	            } catch (err) {
-	                _didIteratorError3 = true;
-	                _iteratorError3 = err;
-	            } finally {
-	                try {
-	                    if (!_iteratorNormalCompletion3 && _iterator3.return) {
-	                        _iterator3.return();
-	                    }
-	                } finally {
-	                    if (_didIteratorError3) {
-	                        throw _iteratorError3;
 	                    }
 	                }
 	            }
