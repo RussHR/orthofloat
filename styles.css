@@ -31,6 +31,9 @@
     cursor: pointer; }
   #menu .menu-background {
     background-color: rgba(255, 255, 255, 0.75); }
+
+.is-hidden {
+  display: none; }
 .orthofloat-wrapper {
   position: relative;
   max-height: 100vh;
